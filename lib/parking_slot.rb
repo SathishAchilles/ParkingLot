@@ -2,18 +2,12 @@ require_relative 'parking_layout'
 
 #class for the individual parking slots present within the parking lot
 class ParkingSlot
-  @@distance_from_the_entry_point = ParkingLayout::ENTRY_POINT
-  attr_accessor :available
+  attr_accessor :available, :number
 
-  def initialize(entry_point=nil)
-    @@distance_from_the_entry_point = entry_point if entry_point
-    set_number
+  def initialize(number)
     @available = true
     @vehicle = nil
-  end
-
-  def number
-    @number
+    @number = number
   end
 
   def allocate(vehicle)
@@ -22,12 +16,13 @@ class ParkingSlot
     number
   end
 
-  def allocated_vehicle?
+  def allocated?
     @vehicle
   end
 
-  protected
-  def set_number
-    @number = (@@distance_from_the_entry_point += ParkingLayout::INCREASING_STEP)
+  def deallocate
+    @vehicle = nil
+    @available = false
+    true
   end
 end
