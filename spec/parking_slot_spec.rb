@@ -21,3 +21,12 @@ describe ParkingSlot, "#number" do
     end
   end
 end
+
+describe ParkingSlot, "#available" do
+  context "available parking slot" do
+    parking_slot = ParkingSlot.new
+    it "should return true when available" do
+      expect(parking_slot.available).to be_truthy
+    end
+  end
+end
