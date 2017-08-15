@@ -21,4 +21,12 @@ class ParkingLot
       @slots = []
     end
   end
+
+  def available_slots
+    @slots.select{|slot| slot.available }
+  end
+
+  def allocate_slot(vehicle)
+    available_slots.sort_by(&:number).first.allocate(vehicle)
+  end
 end

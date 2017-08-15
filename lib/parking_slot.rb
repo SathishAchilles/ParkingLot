@@ -19,9 +19,10 @@ class ParkingSlot
   def allocate(vehicle)
     @vehicle = vehicle
     @available = false
+    number
   end
 
-  def allocated_vehicle
+  def allocated_vehicle?
     @vehicle
   end
 
