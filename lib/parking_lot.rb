@@ -12,7 +12,9 @@ class ParkingLot
   def slots=(no_of_slots)
     begin
       raise ArgumentError unless no_of_slots.is_a?(Integer)
-      (no_of_slots || 0).times{|k| @slots << ParkingSlot.new(k+1) }
+      (ParkingLayout::ENTRY_POINT...no_of_slots).each{|slot|
+        @slots << ParkingSlot.new(slot+ParkingLayout::INCREASING_STEP)
+      }
     rescue ArgumentError => e
       e.backtrace
       @slots = []
@@ -38,5 +40,9 @@ class ParkingLot
     slot = allocated_slots.find{|slot| slot.number == number }
     return false unless slot
     slot.deallocate
+  end
+
+  def full?
+    available_slots.empty?
   end
 end
