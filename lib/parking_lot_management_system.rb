@@ -18,6 +18,10 @@ class ParkingLotManagementSystem
     @parking_lot.allocate_slot(vehicle.new(registration_number,colour))
   end
 
+  def leave(slot)
+    @parking_lot.deallocate_slot(slot)
+  end
+
   #TODO: try to meta program it as helpers module
   def registration_numbers_for_cars_with_colour(colour)
     vehicles = (@parking_lot.allocated_slots.select do |slot|
