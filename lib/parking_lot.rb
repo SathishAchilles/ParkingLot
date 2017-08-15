@@ -35,6 +35,8 @@ class ParkingLot
   end
 
   def deallocate_slot(number)
-    allocated_slots.find{|slot| slot.number == number }.deallocate
+    slot = allocated_slots.find{|slot| slot.number == number }
+    return false unless slot
+    slot.deallocate
   end
 end

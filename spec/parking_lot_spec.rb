@@ -43,23 +43,29 @@ describe ParkingLot, "#slots, #available_slots, #allocate_slot, #deallocate_slot
   end
 
   context "allocating parking slots" do
-    parking_lot3 = ParkingLot.new
-    parking_lot3.slots = 1
+    parking_lot = ParkingLot.new
+    parking_lot.slots = 1
     registration_number = "KA-01-HH-1234"
     colour = "White"
     vehicle = Car.new(registration_number, colour)
     it "shoud allocate parking slots" do
-      expect(parking_lot3.allocate_slot(vehicle)).to eq 1
+      expect(parking_lot.allocate_slot(vehicle)).to eq 1
     end
 
-    slot_number = 1
+    it "should return the allocated_slots" do
+      expect(parking_lot.allocated_slots.first.number).to eq 1
+    end
+
+
     it "should deallocate the slot" do
-      expect(parking_lot3.deallocate_slot(slot_number)).to be_truthy
+      slot_number = 1
+      expect(parking_lot.deallocate_slot(slot_number)).to be_truthy
     end
 
-    slot_number = 2
+
     it "should return false if nothing to deallocate" do
-      expect(parking_lot3.deallocate_slot(slot_number)).to be_falsey
+      slot_number = 2
+      expect(parking_lot.deallocate_slot(slot_number)).to be_falsey
     end
   end
 end
