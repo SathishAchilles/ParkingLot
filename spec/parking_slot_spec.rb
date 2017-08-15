@@ -41,4 +41,16 @@ describe ParkingSlot, "#available" do
       expect(parking_slot.available).to be_falsey
     end
   end
+
+  context "#allocate" do
+    it "should allocate vehicle to slot 1" do
+      parking_slot = ParkingSlot.new(1)
+      expect(parking_slot.allocate(Car.new("KA-01-HH-1234", "White"))).to eq 1
+    end
+
+    it "should allocate vehicle to slot 2" do
+      parking_slot = ParkingSlot.new(2)
+      expect(parking_slot.allocate(Car.new("KA-01-HH-5678", "White"))).to eq 2
+    end
+  end
 end

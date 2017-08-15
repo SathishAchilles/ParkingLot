@@ -28,13 +28,18 @@ describe ParkingLot, "#slots, #available_slots, #allocate_slot, #deallocate_slot
       parking_lot.slots = "some dummy string"
       expect(parking_lot.slots).to be_empty
     end
+
+    it "should have different numbers" do
+      parking_lot.slots = 3
+      expect(parking_lot.slots.map(&:number)).to match_array([1,2,3])
+    end
   end
 
   context "available parking slots" do
     parking_lot = ParkingLot.new
     parking_lot.slots = 3
     it "should return all available slots" do
-      expect(parking_lot.available_slots.count).to eq 3
+      expect(parking_lot.available_slots.map(&:number)).to match_array([1,2,3])
     end
 
     it "should return as available slots" do
@@ -44,27 +49,29 @@ describe ParkingLot, "#slots, #available_slots, #allocate_slot, #deallocate_slot
 
   context "allocating parking slots" do
     parking_lot = ParkingLot.new
-    parking_lot.slots = 1
+    parking_lot.slots = 3
     registration_number = "KA-01-HH-1234"
     colour = "White"
     vehicle = Car.new(registration_number, colour)
-    it "shoud allocate parking slots" do
+    it "should allocate parking slot 1" do
       expect(parking_lot.allocate_slot(vehicle)).to eq 1
+    end
+
+    it "should allocate parking_slot 2" do
+      expect(parking_lot.allocate_slot(vehicle)).to eq 2
     end
 
     it "should return the allocated_slots" do
       expect(parking_lot.allocated_slots.first.number).to eq 1
     end
 
-
     it "should deallocate the slot" do
       slot_number = 1
       expect(parking_lot.deallocate_slot(slot_number)).to be_truthy
     end
 
-
     it "should return false if nothing to deallocate" do
-      slot_number = 2
+      slot_number = 3
       expect(parking_lot.deallocate_slot(slot_number)).to be_falsey
     end
   end
