@@ -22,7 +22,6 @@ class ParkingSlot
 
   def deallocate
     @vehicle = nil
-    @available = false
-    true
+    @available = true
   end
 end
