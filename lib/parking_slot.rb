@@ -5,7 +5,8 @@ class ParkingSlot
   @@distance_from_the_entry_point = ParkingLayout::ENTRY_POINT
   attr_accessor :available
 
-  def initialize
+  def initialize(entry_point=nil)
+    @@distance_from_the_entry_point = entry_point if entry_point
     set_number
     @available = true
     @vehicle = nil
