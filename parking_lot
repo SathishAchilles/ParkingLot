@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+./lib/parking_lot_app.rb $1
