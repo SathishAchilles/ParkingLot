@@ -11,6 +11,7 @@ class ParkingLot
 
   def slots=(no_of_slots)
     begin
+      no_of_slots = no_of_slots.to_i
       raise ArgumentError unless no_of_slots.is_a?(Integer)
       (ParkingLayout::ENTRY_POINT...no_of_slots).each{|slot|
         @slots << ParkingSlot.new(slot+ParkingLayout::INCREASING_STEP)

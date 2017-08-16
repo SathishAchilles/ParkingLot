@@ -1,4 +1,4 @@
-require 'vehicle'
+require_relative 'vehicle'
 
 #inherits from vehicle
 #default vehicle for the parking_lot

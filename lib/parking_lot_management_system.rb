@@ -1,5 +1,5 @@
-require 'parking_lot'
-require 'car'
+require_relative 'parking_lot'
+require_relative 'car'
 
 #brings abstractnes to the outside world
 module ParkingLotManagementSystem
@@ -7,19 +7,26 @@ module ParkingLotManagementSystem
   def initialize
     @parking_lot = ParkingLot.new()
   end
-  
+
   def create_parking_lot(no_of_slots)
     return false unless no_of_slots
     @parking_lot.slots = no_of_slots
+    return "Created a parking lot with #{@parking_lot.slots.count} slots"
   end
 
   def park(vehicle=Car,registration_number,colour)
     return "Sorry, parking lot is full" if @parking_lot.full?
-    @parking_lot.allocate_slot(vehicle.new(registration_number,colour))
+    number = @parking_lot.allocate_slot(vehicle.new(registration_number,colour))
+    return "Allocated slot number: #{number}"
   end
 
   def leave(slot)
-    @parking_lot.deallocate_slot(slot)
+    slot = slot.to_i
+    if @parking_lot.deallocate_slot(slot)
+      return "Slot number #{slot} is free"
+    else
+      return "Unable to free space"
+    end
   end
 
   def status
@@ -31,7 +38,13 @@ module ParkingLotManagementSystem
       status_val[:colour] = slot.vehicle.colour
       status << status_val
     end
-    status
+    decorate_status(status)
+  end
+
+  def decorate_status(status)
+    puts status.first.keys.join("\t")
+    status.each{|k| puts k.values.join("\t")}
+    nil
   end
 
   #TODO: try to meta program it as helpers module
