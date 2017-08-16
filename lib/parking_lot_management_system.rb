@@ -36,19 +36,33 @@ class ParkingLotManagementSystem
 
   #TODO: try to meta program it as helpers module
   def registration_numbers_for_cars_with_colour(colour)
-    vehicles = (@parking_lot.allocated_slots.select do |slot|
-      vehicle = slot.vehicle
-      vehicle.registration_number if vehicle.colour == colour
-    end)
-    return "Not Found" unless vehicles
-    vehicles.map(&:registration_number).join(', ')
+    cars_with_colour = cars.select{|car| car.colour == colour }
+    return "Not found" if cars_with_colour.empty?
+    cars_with_colour.map(&:registration_number).join(', ')
+  end
+
+  def slot_numbers_for_cars_with_colour(colour)
+    slot_numbers = []
+    @parking_lot.allocated_slots.each do |slot|
+      slot_numbers << slot.number if (slot.vehicle.is_a?(Car) && (slot.vehicle.colour == colour))
+    end
+    return "Not found" if slot_numbers.empty?
+    slot_numbers.join(',')
   end
 
   #TODO: try to meta program it as helpers module
-  def slot_numbers_for_registration_number(registration_number)
-    slot_numbers = @parking_lot.allocated_slots.select{
-      |slot| slot.vehicle.registration_number == registration_number }
-      return "Not Found" unless slot_numbers or slot_numbers.empty?
+  def slot_number_for_registration_number(registration_number)
+    slot = @parking_lot.allocated_slots.find{|slot| (slot.vehicle.is_a?(Car) && (slot.vehicle.registration_number == registration_number)) }
+    return "Not found" unless slot
+    slot.number
+  end
+
+  def cars
+    cars = []
+    @parking_lot.allocated_slots.each do |slot|
+      cars << slot.vehicle if slot.vehicle.is_a?(Car)
     end
+    cars
+  end
 
   end
