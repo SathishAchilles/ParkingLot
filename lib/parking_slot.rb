@@ -2,7 +2,7 @@ require_relative 'parking_layout'
 
 #class for the individual parking slots present within the parking lot
 class ParkingSlot
-  attr_accessor :available, :number
+  attr_accessor :available, :number, :vehicle
 
   def initialize(number)
     @available = true

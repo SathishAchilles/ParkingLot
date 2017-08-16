@@ -22,6 +22,18 @@ class ParkingLotManagementSystem
     @parking_lot.deallocate_slot(slot)
   end
 
+  def status
+    status = []
+    @parking_lot.allocated_slots.each do |slot|
+      status_val = {}
+      status_val[:slot] = slot.number
+      status_val[:registration_number] = slot.vehicle.registration_number
+      status_val[:colour] = slot.vehicle.colour
+      status << status_val
+    end
+    status
+  end
+
   #TODO: try to meta program it as helpers module
   def registration_numbers_for_cars_with_colour(colour)
     vehicles = (@parking_lot.allocated_slots.select do |slot|
