@@ -2,8 +2,9 @@ require 'parking_lot_management_system'
 require 'car'
 
 describe ParkingLotManagementSystem do
-  pms = ParkingLotManagementSystem.new
-
+  parking_lot_management_system = Class.new()
+  parking_lot_management_system.include(ParkingLotManagementSystem)
+  pms = parking_lot_management_system.new()
   context "#create_parking_lot" do
     it "should create parking lot" do
       expect(pms.create_parking_lot(6)).to eq 6
@@ -32,7 +33,7 @@ describe ParkingLotManagementSystem do
 
   context "#status display status" do
     it "should show the status of slot no, reg no, colour" do
-      pms = ParkingLotManagementSystem.new
+      pms = parking_lot_management_system.new()
       pms.create_parking_lot(3)
       pms.park("KA-01-HH-1234","White")
       pms.park("KA-01-HH-5678","Red")
@@ -45,7 +46,7 @@ describe ParkingLotManagementSystem do
 
     context "#registration_numbers_for_cars_with_colour" do
       it "should retrun only cars" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -55,7 +56,7 @@ describe ParkingLotManagementSystem do
       end
 
       it "should return registration_numbers for cars only with colour White" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -65,7 +66,7 @@ describe ParkingLotManagementSystem do
       end
 
       it "should return registration_numbers for cars only with colour Black" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -75,7 +76,7 @@ describe ParkingLotManagementSystem do
       end
 
       it "should return 'Not found' if the car colour is not present" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -85,7 +86,7 @@ describe ParkingLotManagementSystem do
 
     context "#slot_numbers_for_cars_with_colour" do
       it "should return all slot numbers only for cars with colour" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -95,7 +96,7 @@ describe ParkingLotManagementSystem do
       end
 
       it "should return 'Not found' if the car colour is not present" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -105,7 +106,7 @@ describe ParkingLotManagementSystem do
 
     context "#slot_number_for_registration_number" do
       it "should return the slot number for the car with registration number" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         pms.park("KA-01-HH-5678","Red")
@@ -115,7 +116,7 @@ describe ParkingLotManagementSystem do
       end
 
       it "should return 'Not found' if the registration_number is not present" do
-        pms = ParkingLotManagementSystem.new
+        pms = parking_lot_management_system.new()
         pms.create_parking_lot(5)
         pms.park("KA-01-HH-1234","White")
         expect(pms.slot_number_for_registration_number("KA-01-HH-9876")).to eq "Not found"

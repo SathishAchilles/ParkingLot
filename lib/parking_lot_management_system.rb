@@ -2,12 +2,12 @@ require 'parking_lot'
 require 'car'
 
 #brings abstractnes to the outside world
-class ParkingLotManagementSystem
+module ParkingLotManagementSystem
 
   def initialize
     @parking_lot = ParkingLot.new()
   end
-
+  
   def create_parking_lot(no_of_slots)
     return false unless no_of_slots
     @parking_lot.slots = no_of_slots
@@ -65,4 +65,4 @@ class ParkingLotManagementSystem
     cars
   end
 
-  end
+end
